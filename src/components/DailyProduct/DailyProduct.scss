@@ -1,0 +1,157 @@
+.modalWindow {
+    position: fixed;
+    // — Фиксированное позиционирование: модальное окно будет поверх всего интерфейса, "приклеено" к экрану.
+    opacity: 0;
+    visibility: hidden;
+    //— По умолчанию скрыто: окно полностью прозрачное и недоступно для кликов.
+    transition: all .4s ease-in-out;
+    // — Плавный переход при открытии/закрытии (появление и исчезновение).
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    //— Центрируем окно по горизонтали и вертикали в центре экрана.
+    z-index: 100;
+    // — Показываем поверх всех остальных элементов (высокий приоритет по слоям).
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // — Выравниваем содержимое по центру (внутренний контейнер товара).
+}
+
+.shown {
+    opacity: 1;
+    visibility: visible;
+    //— Когда добавляется класс shown → модальное окно становится видимым и активным.
+    width: 100%;
+    height: 100%;
+    //— Растягиваем подложку на весь экран.
+    background-color: #00000050;
+    // — Полупрозрачный чёрный фон (затемнение заднего плана — это подложка модалки).
+}
+
+.productContainer {
+    max-width: 550px; //— Максимальная ширина карточки товара — не больше 550px.
+    background-color: var(--green); // — Фоновый цвет — зелёный, взятый из CSS-переменной.
+    border-radius: var(--radius-big); // — Скруглённые углы по переменной --radius-big.
+    padding: 32px; // — Внутренние отступы (пространство внутри блока).
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-medium);
+
+    // — Колонка с элементами, равномерно разделёнными промежутком (gap).
+    &__header {
+        display: flex;
+        justify-content: space-between;
+
+        // — Располагаем заголовок и крестик по краям (слева и справа).
+        .dailyProduct__title {
+            font-size: var(--font-large);
+            color: var(--txt-white);
+            font-weight: var(--light-bold);
+            //— Стиль заголовка: крупный, белый, полужирный.
+        }
+
+        .icon {
+            color: var(--white); //Белая по умолчанию.
+
+            &:hover {
+                color: #f45757; // При наведении — краснеет (эффект наведения).
+            }
+        }
+    }
+
+    .dailyProduct {
+        // — Основная карточка товара:
+        background-color: var(--white); // Белый фон
+        border-radius: var(--radius-big); // скругление
+        position: relative; // позиционируем относительно (для размещения скидки сверху).
+
+        &__image {
+            border-radius: var(--radius-big) var(--radius-big) 0 0; // Скруглены только верхние углы.
+            display: block; // Растягивается на всю ширину блока.
+            width: 100%;
+            object-fit: cover; //  сохраняет пропорции и обрезает по высоте.
+            height: 284px;
+            border-bottom: 1px solid var(--grey); // Снизу добавлена тонкая серая граница.
+        }
+
+        &__header {
+            // — Панель скидки и иконки вверху изображения:
+            position: absolute; // Абсолютное позиционирование — накладывается на изображение.
+            padding: 16px;
+            width: 100%;
+            display: flex; // Расположена сверху.
+            justify-content: space-between; // Выравнивание — между левым и правым краем.
+            top: 0;
+            left: 0;
+        }
+
+        &__discount {
+            // Стилизуем "бейдж" скидки: Оранжевый фон (--sale), белый текст.
+            // Скругление, отступы, средний шрифт.
+
+            background-color: var(--sale);
+            color: var(--txt-white);
+            padding: 4px 8px;
+            align-self: center;
+            border-radius: var(--radius-small);
+            font-size: var(--font-medium);
+            font-weight: var(--light-bold);
+        }
+
+        &__footer {
+            // — Нижняя часть карточки:
+            // Название и цены.
+            // Вертикальное расположение, отступы между блоками.
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding: 16px;
+        }
+
+        &__name {
+            font-size: var(--font-medium);
+            color: var(--txt-black);
+            font-weight: var(--normal);
+        }
+
+        &__prices {
+            // — Блок с двумя ценами:
+            // Располагаются горизонтально.
+            // Снизу выровнены по базовой линии (например: $49 $99).
+            display: flex;
+            gap: 16px;
+            align-items: flex-end;
+        }
+
+        &__current-price {
+            //  Цена со скидкой: Крупная, чёрная, жирная.
+            font-weight: var(--light-bold);
+            font-size: var(--font-large);
+            color: var(--txt-black);
+        }
+
+        &__old-price {
+            //Старая цена: Серый цвет, зачёркнута, средняя по размеру.
+            text-decoration: line-through;
+            color: var(--txt-grey);
+            font-size: var(--font-medium);
+            font-weight: var(--normal);
+        }
+    }
+}
+
+.btn-daily {
+    //— Кнопка "Add to cart": Убираем рамку, даже если она наследуется из других стилей (!important).
+    border: none !important;
+}
+
+// ИТОГ: что делает этот SCSS?
+// Блок|	Что оформляет
+// .modalWindow |	Центральное модальное окно
+// .shown	| Активация окна + затемнение
+// .productContainer	| Вся карточка товара дня
+// .dailyProduct__image	| Изображение товара
+// .dailyProduct__discount	| Бейдж "-50%"
+// .dailyProduct__footer	| Название и цены
+// .btn-daily	| Кнопка снизу

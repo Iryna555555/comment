@@ -1,0 +1,28 @@
+.products-grid {
+  display: grid; // используем CSS Grid — раскладываем карточки в сетку
+  grid-template-columns: repeat(4, 1fr); // создаём 4 равные колонки (по 1fr = 25%)
+  gap: var(--gap-large); // расстояние между карточками (из переменной)
+  }
+
+  @media (max-width: 768px) {
+    .products-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+
+  @media (max-width: 360px) {
+    .products-grid {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+
+.products-empty{
+  font-size: var(--font-big); // крупный размер текста
+  font-weight: var(--light-bold); // чуть жирнее обычного
+  text-decoration: underline; // подчёркиваем текст
+  grid-column: 1/5; // растягиваем на все 4 колонки сетки
+  text-align: center; // выравниваем по центру
+  // Если фильтрация не находит ни одного товара, этот стиль оформляет надпись:
+}

@@ -1,0 +1,70 @@
+.categories {
+    padding: 0 40px; // горизонтальные отступы для всей страницы
+
+    &__container {
+        max-width: 1440px; // ограничиваем ширину контейнера
+        width: 100%; // растягиваем до ширины экрана (но не больше 1440px)
+    }
+    
+
+    &__list {
+        display: grid; // используем CSS Grid для карточек
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+          // автоматически заполняем строку карточками шириной от 240px
+        gap: var(--gap-large); // расстояние между карточками
+        justify-content: center; // центрируем сетку по горизонтали
+    }
+}
+
+a {
+    text-decoration: none !important; // убираем подчёркивание у ссылок
+}
+
+.category-card {
+    display: flex; // вертикальное размещение
+    flex-direction: column;
+    align-items: center; // по центру по горизонтали
+    transition: all 0.3s ease-in-out; // плавное увеличение при наведении
+    text-decoration: none; // чтобы не было подчёркивания у всей карточки
+
+    &__image {
+        width: 100%; // занимает всю ширину карточки
+        height: 350px; // фиксированная высота
+        object-fit: cover; // обрезает изображение, чтобы не искажалось
+        border-radius: var(--radius-big); // скруглённые края
+    }
+
+    &__link {
+        padding: 10px; // отступ вокруг текста
+        font-size: var(--font-medium);
+        font-weight: var(--normal);
+        color: var(--black); // чёрный текст
+        transition: color 0.3s ease-in-out; // плавная смена цвета при наведении
+        text-align: center;
+
+        &:hover {
+            color: var(--green); // зелёный при наведении
+        }
+    }
+
+    &:hover {
+        transform: scale(1.05); // слегка увеличиваем карточку
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .categories{
+        padding: 0 20px; // уменьшаем боковые отступы на планшетах
+    }
+}
+
+
+// ✅ Что делают эти стили:
+// Класс |	Что оформляет
+// .categories |	Общая обёртка страницы
+// __container |	Центрирует и ограничивает ширину
+// __list |	Сетка карточек
+// .category-card |	Оформление каждой категории
+// __image |	Картинку категории
+// __link |	Текст названия категории
+// @media |	Поддержка адаптива
